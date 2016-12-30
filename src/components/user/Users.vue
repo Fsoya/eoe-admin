@@ -1,0 +1,85 @@
+<template>
+    <div>
+      <div class="toolbar">
+        <el-button type="primary" v-if="hasRight('add')">新增</el-button>
+        <el-button type="primary" v-if="hasRight('edit')">修改</el-button>
+        <el-button type="primary" v-if="hasRight('del')">删除</el-button>
+        <el-button type="primary" v-if="hasRight('query')">查询</el-button>
+      </div>
+      <el-table :data="sysUsers.results" v-loading="loading">
+        <el-table-column prop="id" label="ID" width="180"></el-table-column>
+        <el-table-column prop="userName" label="User Name" width="180"></el-table-column>
+        <el-table-column prop="email" label="E-mail"></el-table-column>
+        <el-table-column prop="mobilePhoneNumber" label="Phone Number"></el-table-column>
+        <el-table-column label="操作" width="120" inline-template align="center">
+          <el-button @click="showDetail(row)" type="text" size="small">查看详情</el-button>
+        </el-table-column>
+      </el-table>
+      <el-pagination class="page"
+        @current-change="handleCurrentChange"
+        :current-page="1"
+        :page-size="10"
+        layout="total, prev, pager, next, jumper"
+        :total="sysUsers.totalRecord">
+      </el-pagination>
+      <router-view></router-view>
+    </div>
+</template>
+<style scoped>
+  .page{
+    text-align: right;
+    margin: 10px 0px;
+  }
+</style>
+<style>
+  .toolbar{
+    padding: 10px;
+  }
+</style>
+<script>
+  import { mapGetters } from 'vuex'
+  import userApi from '../../api/userApi'
+
+  export default {
+    data () {
+      return {
+        sysUsers: {},
+        rights: {},
+        loading: false
+      }
+    },
+    beforeCreate: function () {
+      this.loading = true
+      userApi.queryAll(1, 10).then((resp) => {
+        this.sysUsers = resp.data
+        this.loading = false
+      })
+    },
+    computed: {
+      rights: function () {
+        return this.$route.meta.rights
+      },
+      ...mapGetters({
+        sysUser: 'sysUser'
+      })
+    },
+    methods: {
+      hasRight: function (rightType) {
+        let flag = this.rights.indexOf(rightType) > -1
+        console.log(flag)
+        return flag
+      },
+      handleCurrentChange: function (pageNo) {
+        this.loading = true
+        userApi.queryAll(pageNo, 10).then((resp) => {
+          this.sysUsers = resp.data
+          this.loading = false
+        })
+      },
+      showDetail: function (sysUser) {
+//        this.$store.dispatch('updateActiveUser', sysUser)
+        this.$router.push({name: 'm-u-d', params: {id: sysUser.id}})
+      }
+    }
+  }
+</script>
