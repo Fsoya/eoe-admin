@@ -14,7 +14,11 @@ export default {
     return Vue.http.get(apiUrl + 'eoe/mybatis/sysuser/' + id)
   },
   save (sysUser) {
-    return Vue.http.put(apiUrl + 'eoe/mybatis/sysuser/', sysUser)
+    if (!sysUser.id) {
+      return Vue.http.post(apiUrl + 'eoe/mybatis/sysuser/', sysUser)
+    } else {
+      return Vue.http.put(apiUrl + 'eoe/mybatis/sysuser/', sysUser)
+    }
   },
   queryToken (token) {
     return Vue.http.get(apiUrl + 'token/' + token)

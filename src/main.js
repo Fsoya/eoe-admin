@@ -10,12 +10,15 @@ import NProgress from 'nprogress'// 页面顶部进度条
 import 'nprogress/nprogress.css'
 
 import routes from './routes'
+import rightMixin from './mixin/rights'
 import userApi from './api/userApi'
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(Vuex)
+
+Vue.mixin(rightMixin)
 
 Vue.http.interceptors.push(function (request, next) {
   let token = window.sessionStorage.getItem('token')

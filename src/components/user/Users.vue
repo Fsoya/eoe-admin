@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="toolbar">
-        <el-button type="primary" v-if="hasRight('add')">新增</el-button>
+        <el-button type="primary" v-if="hasRight('add')" @click="showDetail('create')">新增</el-button>
         <el-button type="primary" v-if="hasRight('edit')">修改</el-button>
         <el-button type="primary" v-if="hasRight('del')">删除</el-button>
         <el-button type="primary" v-if="hasRight('query')">查询</el-button>
@@ -12,7 +12,7 @@
         <el-table-column prop="email" label="E-mail"></el-table-column>
         <el-table-column prop="mobilePhoneNumber" label="Phone Number"></el-table-column>
         <el-table-column label="操作" width="120" inline-template align="center">
-          <el-button @click="showDetail(row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="showDetail(row.id)" type="text" size="small">查看详情</el-button>
         </el-table-column>
       </el-table>
       <el-pagination class="page"
@@ -37,14 +37,12 @@
   }
 </style>
 <script>
-  import { mapGetters } from 'vuex'
   import userApi from '../../api/userApi'
 
   export default {
     data () {
       return {
         sysUsers: {},
-        rights: {},
         loading: false
       }
     },
@@ -55,18 +53,9 @@
         this.loading = false
       })
     },
-    computed: {
-      rights: function () {
-        return this.$route.meta.rights
-      },
-      ...mapGetters({
-        sysUser: 'sysUser'
-      })
-    },
     methods: {
       hasRight: function (rightType) {
         let flag = this.rights.indexOf(rightType) > -1
-        console.log(flag)
         return flag
       },
       handleCurrentChange: function (pageNo) {
@@ -76,9 +65,9 @@
           this.loading = false
         })
       },
-      showDetail: function (sysUser) {
+      showDetail: function (id) {
 //        this.$store.dispatch('updateActiveUser', sysUser)
-        this.$router.push({name: 'm-u-d', params: {id: sysUser.id}})
+        this.$router.push({name: 'm-u-d', params: {id: id}})
       }
     }
   }

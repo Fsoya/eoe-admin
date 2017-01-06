@@ -13,7 +13,6 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      failed: {}
     }
   },
   name: 'app',

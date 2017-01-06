@@ -46,9 +46,14 @@
       }
     },
     created: function () {
-      userApi.queryById(this.$route.params.id).then((resp) => {
-        this.activeSysUser = resp.data
-      })
+      if (this.$route.params.id !== 'create') {
+        userApi.queryById(this.$route.params.id).then((resp) => {
+          this.activeSysUser = resp.data
+        })
+      } else {
+        this.activeSysUser.status = 'string'
+        this.activeSysUser.createDate = new Date()
+      }
     },
     methods: {
       onSubmit () {
@@ -60,7 +65,7 @@
         })
       },
       cancel () {
-        this.$router.go(-1)
+        this.$router.push('/user')
       }
     }
   }

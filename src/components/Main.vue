@@ -162,12 +162,9 @@
   }
 </style>
 <script>
-  import { mapGetters } from 'vuex'
-
   export default{
     data () {
       return {
-        sysUser: {},
         menus: [],
         activeMenu: ''
       }
@@ -182,11 +179,6 @@
         this.activeMenu = url.split('#')[1]
         this.$router.push(this.activeMenu)
       }
-    },
-    computed: {
-      ...mapGetters({
-        sysUser: 'sysUser'
-      })
     },
     methods: {
       handleOpen: function () {
