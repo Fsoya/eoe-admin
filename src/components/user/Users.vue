@@ -7,12 +7,12 @@
         <el-button type="primary" v-if="hasRight('query')">查询</el-button>
       </div>
       <el-table :data="sysUsers.results" v-loading="loading">
-        <el-table-column prop="id" label="ID" width="180"></el-table-column>
+        <el-table-column prop="pkid" label="ID" width="180"></el-table-column>
         <el-table-column prop="userName" label="User Name" width="180"></el-table-column>
         <el-table-column prop="email" label="E-mail"></el-table-column>
         <el-table-column prop="mobilePhoneNumber" label="Phone Number"></el-table-column>
         <el-table-column label="操作" width="120" inline-template align="center">
-          <el-button @click="showDetail(row.id)" type="text" size="small">查看详情</el-button>
+          <el-button @click="showDetail(row.pkid)" type="text" size="small">查看详情</el-button>
         </el-table-column>
       </el-table>
       <el-pagination class="page"
