@@ -37,7 +37,7 @@
   }
 </style>
 <script>
-  import userApi from '../../api/userApi'
+  import userApi from '../../../api/userApi'
 
   export default {
     data () {

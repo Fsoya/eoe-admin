@@ -11,8 +11,7 @@ export default {
   },
   methods: {
     hasRight: function (rightType) {
-      let flag = this.rights.indexOf(rightType) > -1
-      return flag
+      return this.rights.includes(rightType)
     }
   }
 }

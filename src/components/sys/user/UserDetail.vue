@@ -28,7 +28,7 @@
 </style>
 <script>
 //  import { mapGetters } from 'vuex'
-  import userApi from '../../api/userApi'
+  import userApi from '../../../api/userApi'
 
   export default{
     data () {

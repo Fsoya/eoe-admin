@@ -35,7 +35,7 @@
       </el-col>
     </el-col>
     <el-col :span="24" style="flex-grow: 1;display: flex">
-      <aside style="width:230px;min-height:100%">
+      <aside style="min-width:230px;min-height:100%">
         <h5 class="admin"><i class="fa fa-user" aria-hidden="true" style="margin-right:5px;"></i>欢迎系统管理员：{{sysUser.name}}</h5>
         <el-menu theme="dark" style="background:#1e282c" :default-active="activeMenu" @open="handleOpen" @close="handleClose" router>
           <el-submenu index="1" v-for="menu in menus">
@@ -79,6 +79,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-width: 900px;
   }
 
   .panel-top {
@@ -117,7 +118,6 @@
 
   .panel-footer{
     margin-left: 230px;
-    margin-left: 230px;
     padding: 10px;
     font-size: 12px;
   }
@@ -146,7 +146,7 @@
     text-align: center;
     background: #475863;
     margin: 0px;
-    padding: 50px;
+    padding: 50px 0;
   }
 </style>
 <style>
