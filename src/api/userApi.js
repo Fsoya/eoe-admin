@@ -4,7 +4,6 @@ const apiUrl = 'api/'
 
 export default {
   signIn (userName, password) {
-    console.log(userName)
     return Vue.http.post(apiUrl + 'login', {userName, password})
   },
   queryAll (pageNo, pageSize = 10) {

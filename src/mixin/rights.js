@@ -3,7 +3,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     rights: function () {
-      return this.$route.meta.rights
+      return this.$route && this.$route.meta.rights ? this.$route.meta.rights : []
     },
     ...mapGetters({
       sysUser: 'sysUser'

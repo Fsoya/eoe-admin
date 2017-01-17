@@ -38,6 +38,7 @@
 </style>
 <script>
   import userApi from '../../../api/userApi'
+  import mixin from '../../../mixin/rights'
 
   export default {
     data () {
@@ -46,6 +47,7 @@
         loading: false
       }
     },
+    mixins: [mixin],
     beforeCreate: function () {
       this.loading = true
       userApi.queryAll(1, 10).then((resp) => {
@@ -54,10 +56,6 @@
       })
     },
     methods: {
-      hasRight: function (rightType) {
-        let flag = this.rights.indexOf(rightType) > -1
-        return flag
-      },
       handleCurrentChange: function (pageNo) {
         this.loading = true
         userApi.queryAll(pageNo, 10).then((resp) => {

@@ -24,7 +24,7 @@ const getters = {
     return state.sysUser
   },
   menus (state) {
-    return state.sysUser.menus
+    return state.sysUser ? state.sysUser.menus : null
   }
 }
 

@@ -10,7 +10,7 @@ import NProgress from 'nprogress'// 页面顶部进度条
 import 'nprogress/nprogress.css'
 
 import routes from './routes'
-import rightMixin from './mixin/rights'
+// import rightMixin from './mixin/rights'
 import userApi from './api/userApi'
 
 Vue.use(ElementUI)
@@ -18,7 +18,7 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(Vuex)
 
-Vue.mixin(rightMixin)
+// Vue.mixin(rightMixin)
 
 Vue.http.interceptors.push(function (request, next) {
   let token = window.sessionStorage.getItem('token')
@@ -84,18 +84,18 @@ router.afterEach(transition => {
 // 获取当前菜单权限
 // ====================
 function setRights (sysUser, to) {
+  if (to.meta.rights) return false
   let menus = sysUser.menus
   menus.every((menu) => {
-    if (to.meta.rights) return false
-    if (menu.subMenus) {
-      menu.subMenus.every((subMenu) => {
-        if (subMenu.url === to.fullPath) {
-          to.meta.rights = subMenu.rights ? subMenu.rights : []
+    if (menu.userMenus) {
+      menu.userMenus.every((userMenu) => {
+        if (userMenu.path === to.fullPath) {
+          to.meta.rights = userMenu.rights ? userMenu.rights : []
           return false
         }
       })
     } else {
-      if (menu.url === to.fullPath) {
+      if (menu.path === to.fullPath) {
         to.meta.rights = menu.rights ? menu.rights : []
         return false
       }

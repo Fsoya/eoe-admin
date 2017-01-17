@@ -261,7 +261,7 @@
         addChild () {
           let target = this.findTargetMenu(this.data, this.selectedMenu.pkid)
           if (!target.children) {
-            target.children = [{name: '请输入名称'}]
+            this.$set(target, 'children', [{name: '请输入名称', pkid: Math.random(), parentid: target.pkid}])
           } else {
             target.children.push({name: '请输入名称'})
           }

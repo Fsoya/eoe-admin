@@ -29,7 +29,6 @@
         </el-badge>
 
         <el-tooltip class="item tip-logout" effect="dark" content="退出" placement="bottom" style="padding:0px;">
-          <!--<i class="logout" v-on:click="logout"></i>-->
           <i class="fa fa-sign-out" aria-hidden="true" @click="signOut"></i>
         </el-tooltip>
       </el-col>
@@ -38,9 +37,9 @@
       <aside style="min-width:230px;min-height:100%">
         <h5 class="admin"><i class="fa fa-user" aria-hidden="true" style="margin-right:5px;"></i>欢迎系统管理员：{{sysUser.name}}</h5>
         <el-menu theme="dark" style="background:#1e282c" :default-active="activeMenu" @open="handleOpen" @close="handleClose" router>
-          <el-submenu index="1" v-for="menu in menus">
-            <template slot="title"><i class="el-icon-message"></i>{{menu.name}}<el-badge class="mark" value="new"/></template>
-            <el-menu-item :index="subMenu.url" v-for="subMenu in menu.subMenus">{{subMenu.name}}<el-badge v-if="subMenu.badge && subMenu.badge > 0" class="mark" :value="subMenu.badge"/></el-menu-item>
+          <el-submenu :index="menu.pkid" v-for="menu in menus">
+            <template slot="title"><i :class="menu.icon"></i>{{menu.name}}<el-badge class="mark" value="new"/></template>
+            <el-menu-item :index="userMenu.path" v-for="userMenu in menu.userMenus">{{userMenu.name}}<el-badge v-if="userMenu.badge && userMenu.badge > 0" class="mark" :value="userMenu.badge"/></el-menu-item>
           </el-submenu>
         </el-menu>
       </aside>
@@ -162,6 +161,8 @@
   }
 </style>
 <script>
+  import mixin from '../mixin/rights'
+
   export default{
     data () {
       return {
@@ -169,11 +170,12 @@
         activeMenu: ''
       }
     },
+    mixins: [mixin],
     created () {
       this.menus = this.sysUser.menus
       let url = window.location.href
       if (url.indexOf('/main') > -1) {
-        this.activeMenu = this.menus[0].subMenus[0].url
+        this.activeMenu = this.menus[0].userMenus[0].path
         this.$router.replace(this.activeMenu)
       } else {
         this.activeMenu = url.split('#')[1]
@@ -189,8 +191,8 @@
         this.$confirm('确认退出吗?', '提示', {
           type: 'warning'
         }).then(() => {
-          this.$store.dispatch('signOut')
           this.$router.replace('/')
+          this.$store.dispatch('signOut')
         }).catch(() => {
         })
       }
