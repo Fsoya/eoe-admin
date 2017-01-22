@@ -45,7 +45,7 @@
         }
       }
     },
-    created: function () {
+    created () {
       if (this.$route.params.id !== 'create') {
         userApi.queryById(this.$route.params.id).then((resp) => {
           this.activeSysUser = resp.data

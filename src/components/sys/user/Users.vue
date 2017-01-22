@@ -48,7 +48,7 @@
       }
     },
     mixins: [mixin],
-    beforeCreate: function () {
+    created () {
       this.loading = true
       userApi.queryAll(1, 10).then((resp) => {
         this.sysUsers = resp.data
