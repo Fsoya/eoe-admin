@@ -1,6 +1,6 @@
-# xiuxiu-admin
+# eoe-admin
 
-> xiuxiu manage  system 
+> eoe manage  system 
 
 ## Build Setup
 
